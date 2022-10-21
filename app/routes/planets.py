@@ -23,3 +23,25 @@ def get_all_planets():
         planet_dict = {"id": planet.id, "name": planet.name, "description": planet.description}
         result.append(planet_dict)
     return jsonify(result),200
+
+@planets_bp.route('/<planet_id>',methods=['GET'])
+def get_one_planets(planet_id):
+    
+    one_planet = None
+    planet_id = int(planet_id)
+    for planet in planets:
+        if planet.id == planet_id:
+            one_planet = planet
+    
+    # if one_planet is None:
+    #     return jsonify({"message":f"Could not find planet with id: {planet_id}"}), 404
+    
+    return_planet = {
+        "id": one_planet.id,
+        "name": one_planet.name,
+        "description": one_planet.description        
+    }
+    
+    return jsonify(return_planet), 200
+    
+    
